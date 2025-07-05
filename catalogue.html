@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Catalogue</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f7f7f7; }
+    header { background-color: #2e7d32; color: white; padding: 1rem; text-align: center; }
+    .container { padding: 1rem; max-width: 1000px; margin: auto; }
+    .search-bar { width: 100%; padding: 10px; font-size: 1rem; margin-bottom: 20px; }
+    .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+    .product { background: white; padding: 1rem; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .product img { width: 100%; height: 150px; object-fit: cover; border-radius: 8px; }
+    .product h3 { margin: 0.5rem 0; }
+    .product p { font-size: 0.9rem; color: #555; }
+    .product .price { font-weight: bold; color: #2e7d32; }
+    .product a.button { display: inline-block; margin-top: 0.5rem; background: #2e7d32; color: white; padding: 0.5rem 1rem; border-radius: 5px; text-decoration: none; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Demo Business Catalogue</h1>
+  </header>
+  <div class="container">
+    <input type="text" class="search-bar" placeholder="Search for products..." onkeyup="searchProducts(this.value)">
+    <div class="products" id="product-list">
+      <!-- Products inserted here -->
+    </div>
+  </div>
+
+  <script>
+    const products = [
+      { name: "Red Sneakers", price: "M250", desc: "Stylish and comfy.", img: "https://via.placeholder.com/200x150", category: "Shoes" },
+      { name: "Leather Wallet", price: "M150", desc: "Handmade, brown leather.", img: "https://via.placeholder.com/200x150", category: "Accessories" },
+      { name: "Classic Watch", price: "M500", desc: "Waterproof with steel band.", img: "https://via.placeholder.com/200x150", category: "Watches" },
+      { name: "Denim Jacket", price: "M400", desc: "Unisex, durable denim.", img: "https://via.placeholder.com/200x150", category: "Clothing" },
+    ];
+
+    const productList = document.getElementById('product-list');
+
+    function displayProducts(list) {
+      productList.innerHTML = '';
+      list.forEach(product => {
+        productList.innerHTML += `
+          <div class="product">
+            <img src="${product.img}" alt="${product.name}">
+            <h3>${product.name}</h3>
+            <p>${product.desc}</p>
+            <p class="price">${product.price}</p>
+            <a class="button" href="https://wa.me/26650000000?text=I'm%20interested%20in%20${encodeURIComponent(product.name)}" target="_blank">Order on WhatsApp</a>
+          </div>
+        `;
+      });
+    }
+
+    function searchProducts(query) {
+      const filtered = products.filter(p => p.name.toLowerCase().includes(query.toLowerCase()) || p.desc.toLowerCase().includes(query.toLowerCase()));
+      displayProducts(filtered);
+    }
+
+    // Initial display
+    displayProducts(products);
+  </script>
+</body>
+</html>
